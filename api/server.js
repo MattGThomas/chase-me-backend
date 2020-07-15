@@ -1,6 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+// const nodemailer = require("nodemailer");
+
+require("dotenv").config();
 
 const requestsRouter = require("../requests/requests-router.js");
 const server = express();

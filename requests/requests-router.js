@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Requests = require("./requests-model.js");
+const nodemailer = require("nodemailer");
 
 router.get("/", (req, res) => {
   Requests.getRequests()
@@ -31,7 +32,38 @@ router.post("/", (req, res) => {
   const requestInfo = { ...req.body };
   Requests.addRequest(requestInfo)
     .then((request) => {
-      res.status(201).json(request);
+      res.status(200).json(request);
+      const smtpTrans = nodemailer.createTransport({
+        // host: "smtp.mailtrap.io",
+        // port: 2525,
+        // secure: true,
+        service: "gmail",
+        auth: {
+          user: process.env.gmail_user,
+          pass: process.env.gmail_pass,
+        },
+      });
+
+      const mailOpts = {
+        from: "Your sender info here", // This is ignored by Gmail
+        to: process.env.email_two,
+        subject: "New message from contact form at chase-me-productions",
+        text: `You have a new message Name: ${requestInfo.firstName} Last Name: ${requestInfo.lastName} Email: ${requestInfo.email} Phone: ${requestInfo.phone} Message: ${requestInfo.message} `,
+        html: `Chase, you have a new message
+        <br/><br/> <strong>Client Name:</strong> <span>${requestInfo.firstName} </span>
+        <br/> <strong>Client Last Name:</strong> ${requestInfo.lastName}
+        <br/><br/> <strong>Client Email:</strong> ${requestInfo.email}
+        <br/> <strong>Client Phone Number:</strong> ${requestInfo.phone}
+        <br/><br/> <strong>Client Message:</strong> ${requestInfo.message}`,
+      };
+
+      smtpTrans.sendMail(mailOpts, (error, response) => {
+        if (error) {
+          res.render("contact-failure"); // Show a page indicating failure
+        } else {
+          res.render("contact-success"); // Show a page indicating success
+        }
+      });
     })
     .catch((err) => {
       console.log(err);
