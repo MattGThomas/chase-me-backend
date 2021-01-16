@@ -39,8 +39,8 @@ router.post("/", (req, res) => {
         // secure: true,
         service: "gmail",
         auth: {
-          user: process.env.gmail_user,
-          pass: process.env.gmail_pass,
+          user: 'mattstestemail2@gmail.com',
+          pass: '2008sidekick6pcK!@#',
         },
       });
 
