@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
       const smtpTrans = nodemailer.createTransport({
         // host: "smtp.mailtrap.io",
         // port: 2525,
-        // secure: true,
+        // secure: true
         service: "gmail",
         auth: {
           user: 'mattstestemail2@gmail.com',
