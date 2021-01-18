@@ -14,12 +14,12 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   Requests.getRequestsById(id).then((request) => {
     if (request) {
       req.request = request;
-      next();
+      // next();
     } else {
       res.status(404).json({
         message: "there is no quest with the given id",
