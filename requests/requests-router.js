@@ -16,16 +16,23 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  Requests.getRequestsById(id).then((request) => {
-    if (request) {
-      req.request = request;
-      // next();
-    } else {
-      res.status(404).json({
-        message: "there is no quest with the given id",
+  Requests.getRequestsById(id)
+    .then((request) => {
+      console.log(request);
+      if (request) {
+        res.status(200).json(request);
+        // next();
+      } else {
+        res.status(404).json({
+          message: "there is no quest with the given id",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "there was an error processing your request",
       });
-    }
-  });
+    });
 });
 
 router.post("/", (req, res) => {
@@ -39,8 +46,8 @@ router.post("/", (req, res) => {
         // secure: true
         service: "gmail",
         auth: {
-          user: 'mattstestemail2@gmail.com',
-          pass: '2008sidekick6pcK!@#',
+          user: "mattstestemail2@gmail.com",
+          pass: "2008sidekick6pcK!@#",
         },
       });
 

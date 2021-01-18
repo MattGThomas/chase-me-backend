@@ -19,7 +19,7 @@ function getRequestsById(id) {
 }
 
 async function addRequest(request) {
-  return db("contactRequests").insert(request, "*");
+  return await db("contactRequests").insert(request, "*");
 }
 
 function deleteRequest(id) {
