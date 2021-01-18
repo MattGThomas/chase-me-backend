@@ -46,15 +46,14 @@ router.post("/", (req, res) => {
         secure: true,
         service: "gmail",
         auth: {
-          user: "chasemewebsite",
-          pass: "ChaseMeProd",
+          user: process.env.gmail_user,
+          pass: process.env.gmail_pass,
         },
       });
 
       const mailOpts = {
         from: "Your sender info here", // This is ignored by Gmail
-        to: "mgthomas0616@gmail.com",
-        // to: process.env.email_two,
+        to: process.env.email_two,
         subject: "New message from contact form at chase-me-productions",
         text: `You have a new message Name: ${requestInfo.firstName} Last Name: ${requestInfo.lastName} Email: ${requestInfo.email} Phone: ${requestInfo.phone} Message: ${requestInfo.message} `,
         html: `Chase, you have a new message
