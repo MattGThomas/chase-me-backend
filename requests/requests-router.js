@@ -55,12 +55,12 @@ router.post("/", (req, res) => {
         from: "Your sender info here", // This is ignored by Gmail
         to: process.env.email_two,
         subject: "New message from contact form at chase-me-productions",
-        text: `You have a new message Name: ${requestInfo.firstName} Last Name: ${requestInfo.lastName} Email: ${requestInfo.email} Phone: ${requestInfo.phone} Message: ${requestInfo.message} `,
+        text: `You have a new message Name: ${requestInfo.firstName} Last Name: ${requestInfo.lastName} Email: ${requestInfo.email} Phone: ${requestInfo.phoneNumber} Message: ${requestInfo.message} `,
         html: `Chase, you have a new message
         <br/><br/> <strong>Client Name:</strong> <span>${requestInfo.firstName} </span>
         <br/> <strong>Client Last Name:</strong> ${requestInfo.lastName}
         <br/><br/> <strong>Client Email:</strong> ${requestInfo.email}
-        <br/> <strong>Client Phone Number:</strong> ${requestInfo.phone}
+        <br/> <strong>Client Phone Number:</strong> ${requestInfo.phoneNumber}
         <br/><br/> <strong>Client Message:</strong> ${requestInfo.message}`,
       };
 
