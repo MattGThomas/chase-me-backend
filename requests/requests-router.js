@@ -41,19 +41,20 @@ router.post("/", (req, res) => {
     .then((request) => {
       res.status(200).json(request);
       const smtpTrans = nodemailer.createTransport({
-        // host: "smtp.mailtrap.io",
-        // port: 2525,
-        // secure: true
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
         service: "gmail",
         auth: {
-          user: "mattstestemail2@gmail.com",
-          pass: "2008sidekick6pcK!@#",
+          user: "chasemewebsite",
+          pass: "ChaseMeProd",
         },
       });
 
       const mailOpts = {
         from: "Your sender info here", // This is ignored by Gmail
-        to: process.env.email_two,
+        to: "mgthomas0616@gmail.com",
+        // to: process.env.email_two,
         subject: "New message from contact form at chase-me-productions",
         text: `You have a new message Name: ${requestInfo.firstName} Last Name: ${requestInfo.lastName} Email: ${requestInfo.email} Phone: ${requestInfo.phone} Message: ${requestInfo.message} `,
         html: `Chase, you have a new message
@@ -64,11 +65,11 @@ router.post("/", (req, res) => {
         <br/><br/> <strong>Client Message:</strong> ${requestInfo.message}`,
       };
 
-      smtpTrans.sendMail(mailOpts, (error, response) => {
+      smtpTrans.sendMail(mailOpts, (error, res) => {
         if (error) {
-          res.render("contact-failure"); // Show a page indicating failure
+          console.log("it failed, here why: ", error);
         } else {
-          res.render("contact-success"); // Show a page indicating success
+          console.log("the email sent succesfully", res);
         }
       });
     })

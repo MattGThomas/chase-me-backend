@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 // const nodemailer = require("nodemailer");
 
 require("dotenv").config();
@@ -12,6 +13,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 server.use(logger);
+// server.use(bodyParser.json());
 
 server.use("/api/request", requestsRouter);
 
